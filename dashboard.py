@@ -1,52 +1,35 @@
-# Import Libraries
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import statsmodels
 
-
-# ==============================
-# PAGE CONFIGURATION
-# ==============================
+# Page configuration
 st.set_page_config(page_title="Bike Share Dashboard", layout="wide")
 
-# ==============================
-# FUNCTION DEFINITIONS
-# ==============================
 
+# Function load_data
 @st.cache_data
 def load_data(file_name):
     data = pd.read_csv(file_name)
     return data
 
 
-# ==============================
-# DATA LOADING
-# ==============================
-
+# Data load
 day_data = load_data("./day.csv")
 hour_data = load_data("./hour.csv")
 
-# Pre-processing data (if needed based on previous analysis)
-# ...
 
-# ==============================
-# HEADER
-# ==============================
+# Header
 st.title("Bike Share Dashboard")
 
-# ==============================
-# SIDEBAR
-# ==============================
+# Sidebar
 st.sidebar.title("About")
 st.sidebar.markdown("**• Nama: Leonardo Alfontus Mende Sirait**")
 st.sidebar.markdown("**• Email: leonardosirait80@gmail.com**")
 st.sidebar.markdown("**• Bangkit ID: M119D4KY3013**")
 st.sidebar.markdown("**• Dicoding: [leonard80](https://www.dicoding.com/users/leonard80/)**")
 
-
+# Show the datasets
 st.sidebar.title("Bike Share Datasets")
-# Show the dataset
 if st.sidebar.checkbox("Show Dataset day.csv"):
     st.subheader("Raw Data")
     st.write(day_data)
@@ -66,17 +49,11 @@ if st.sidebar.checkbox("Show Summary hour.csv Statistics"):
     st.write(hour_data.describe())
 
 
-# ==============================
-# MAIN PAGE LAYOUT
-# ==============================
-# Here you can use columns to layout your page
+
+# Main page
 col1, col2 = st.columns([5, 1])
 
-# ==============================
-# MAIN PAGE CONTENT - COLUMN 1
-# ==============================
 with col1:
-    # Season-wise bike share count with weather conditions
     st.subheader("Daily Bike Rentals by Season and Weather Condition")
 
     # Mapping numbers to season names
@@ -118,19 +95,13 @@ with col1:
     # Show the plot
     st.plotly_chart(fig_season_weather_count)
 
-# ==============================
-# MAIN PAGE CONTENT - COLUMN 2
-# ==============================
 with col2:
     # Displaying the analysis results
     st.subheader("Analysis Results")
     st.markdown("### Percentage Difference in Average Usage")
-    # Assume you have calculated the percentage difference somewhere
-    percentage_diff = -3.54  # Example value
+    percentage_diff = -3.54
     st.metric("Weekday vs Weekend", f"{percentage_diff}%")
 
-    # Any additional analysis results can be displayed here
-    # ...
 
 st.markdown("""
 #### Seasonal Impact
@@ -150,12 +121,6 @@ st.markdown("""
 for x in range(1, 5):
     st.markdown("<br>", unsafe_allow_html=True)
 
-# ==============================
-# VISUALIZATION & EXPLANATORY ANALYSIS INTEGRATION
-# ==============================
-# This will be added after the main page layout
-
-# Assuming this part of the code is within your main Streamlit script
 # Create columns for centering - left, center, right
 left_col, center_col, right_col = st.columns([1, 5, 1])
 with center_col:
